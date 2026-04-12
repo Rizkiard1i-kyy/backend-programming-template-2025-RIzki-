@@ -13,7 +13,7 @@ async function jumlahpercobaan(userId) {
   });
 }
 
-async function jumlah_hadiah() {
+async function getjumlah_hadiah() {
   const allhadiah = await Prize.find({});
   const result = [];
 
@@ -39,7 +39,7 @@ async function riwayat({ Id, hadiahId, namahadiah, menang }) {
   });
 }
 
-async function getUserHistory(Id) {
+async function getriwayat(Id) {
   return Gacha.find({ Id }).sort({ tanggal: -1 });
 }
 
@@ -53,9 +53,9 @@ async function getWinnersByPrize(hadiahId) {
 
 module.exports = {
   jumlahpercobaan,
-  jumlah_hadiah,
+  getjumlah_hadiah,
   riwayat,
-  getUserHistory,
+  getriwayat,
   getAllhadiah,
   getWinnersByPrize,
 };
