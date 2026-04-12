@@ -1,5 +1,5 @@
 module.exports = (mongoose) => {
-  const hadiahSchema = new mongoose.Schema({
+  const prizeSchema = new mongoose.Schema({
     nama: { 
         type: String, 
         required: true 
@@ -11,5 +11,5 @@ module.exports = (mongoose) => {
     },
   });
 
-  return mongoose.model('hadiah', hadiahSchema);
+  return mongoose.model('hadiah', prizeSchema);
 };

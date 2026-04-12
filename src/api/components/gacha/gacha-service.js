@@ -41,22 +41,22 @@ async function spin(Id) {
 
   const menang = terpilih !== null;
 
-  await gachaRepository.recordAttempt({
+  await gachaRepository.riwayat({
     Id,
-    hadiahId: menang ? terpilih._Id : null,
-    namahadiah: menang ? terpilih.name : null,
+    hadiahId: menang ? terpilih._id : null,
+    namahadiah: menang ? terpilih.nama : null,
     menang: menang,
   });
 
-  const attemptsToday = todayAttempts + 1;
+  const attemptsToday = upaya + 1;
   const remainingAttempts = batas_harian - attemptsToday;
 
   if (menang) {
     return {
       berhasil: true,
       menang: true,
-      hadiah: selectedPrize.name,
-      pesan: 'Kamu menang: ' + selectedPrize.name,
+      hadiah: terpilih.nama,
+      pesan: 'Kamu menang: ' + terpilih.nama,
       attemptsToday,
       remainingAttempts,
     };
@@ -64,7 +64,7 @@ async function spin(Id) {
 
   return {
     berhasil: true,
-    memang: false,
+    menang: false,
     hadiah: null,
     pesan: 'Sayang sekali, kamu tidak memenangkan hadiah apapun.',
     attemptsToday,
@@ -73,13 +73,13 @@ async function spin(Id) {
 }
 
 async function getriwayat(Id) {
-  const history = await gachaRepository.getUserHistory(Id);
+  const history = await gachaRepository.getriwayat(Id);
 
   const result = [];
   for (let i = 0; i < history.length; i++) {
     result.push({
       attemptDate: history[i].attemptDate,
-      menang: history[i].won,
+      menang: history[i].menang,
       hadiah: history[i].namahadiah || null,
     });
   }
@@ -88,13 +88,13 @@ async function getriwayat(Id) {
 }
 
 async function getHadiah() {
-  const hadiah = await gachaRepository.getAllPrizes();
+  const hadiah = await gachaRepository.getAllhadiah();
 
   const result = [];
   for (let i = 0; i < hadiah.length; i++) {
     result.push({
-      Id: hadiah[i]._Id,
-      nama: hadiah[i].name,
+      Id: hadiah[i]._id,
+      nama: hadiah[i].nama,
       maxWinners: hadiah[i].maxWinners,
     });
   }
@@ -103,12 +103,12 @@ async function getHadiah() {
 }
 
 async function getPemenang() {
-  const hadiah = await gachaRepository.getAllPrizes();
+  const hadiah = await gachaRepository.getAllhadiah();
   const result = [];
 
   for (let i = 0; i < hadiah.length; i++) {
-    const hadiah = hadiah[i];
-    const winners = await gachaRepository.getWinnersByPrize(hadiah._Id);
+    const pemenangItem = hadiah[i];
+    const winners = await gachaRepository.getWinnersByPrize(pemenangItem._id);
 
     const sembunyikanpemenang = [];
     for (let j = 0; j < winners.length; j++) {
@@ -119,9 +119,9 @@ async function getPemenang() {
     }
 
     result.push({
-      hadiah: hadiah.name,
-      maxWinners: hadiah.maxWinners,
-      pemenang: maskedWinners,
+      hadiah: pemenangItem.nama,
+      maxWinners: pemenangItem.maxWinners,
+      pemenang: sembunyikanpemenang,
     });
   }
 

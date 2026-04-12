@@ -4,7 +4,7 @@ module.exports = (mongoose) => {
         type: String, 
         required: true 
     },
-    
+
     hadiahId: { 
         type: mongoose.Schema.Types.ObjectId, ref: 'hadiah', 
         default: null 
@@ -14,7 +14,7 @@ module.exports = (mongoose) => {
         default: null 
     },
 
-    memang: { 
+    menang: { 
         type: Boolean, 
         default: false 
     },
