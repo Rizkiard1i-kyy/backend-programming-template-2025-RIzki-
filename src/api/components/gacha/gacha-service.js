@@ -35,4 +35,5 @@ async function spin(Id) {
 
 module.exports = {
   spin,
+  sensor
 };
