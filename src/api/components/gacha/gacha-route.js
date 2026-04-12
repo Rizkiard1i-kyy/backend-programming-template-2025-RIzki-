@@ -7,7 +7,7 @@ const route = express.Router();
 module.exports = (app) => {
   app.use('/gacha', route);
 
-  route.post('/spin', gachaController.roll);
+  route.post('/spin', gachaController.spin);
 
   route.get('/riwayat/:Id', gachaController.getUserHistory);
  
