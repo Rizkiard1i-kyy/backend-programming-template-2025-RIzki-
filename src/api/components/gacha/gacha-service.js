@@ -38,6 +38,7 @@ async function spin(Id) {
     const rand = Math.floor(Math.random() * hadiahtersisa.length);
     terpilih = hadiahtersisa[rand];
   }
+  
 
   const menang = terpilih !== null;
 
