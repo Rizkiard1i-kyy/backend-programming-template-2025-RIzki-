@@ -43,7 +43,7 @@ async function spin(Id) {
 
   await gachaRepository.riwayat({
     Id,
-    hadiahId: menang ? terpilih._Id : null,
+    hadiahId: menang ? terpilih._id : null,
     namahadiah: menang ? terpilih.nama : null,
     menang: menang,
   });
@@ -93,7 +93,7 @@ async function getHadiah() {
   const result = [];
   for (let i = 0; i < hadiah.length; i++) {
     result.push({
-      Id: hadiah[i]._Id,
+      Id: hadiah[i]._id,
       nama: hadiah[i].nama,
       maxWinners: hadiah[i].maxWinners,
     });
@@ -108,7 +108,7 @@ async function getPemenang() {
 
   for (let i = 0; i < hadiah.length; i++) {
     const pemenangItem = hadiah[i];
-    const winners = await gachaRepository.getWinnersByPrize(pemenangItem._Id);
+    const winners = await gachaRepository.getWinnersByPrize(pemenangItem._id);
 
     const sembunyikanpemenang = [];
     for (let j = 0; j < winners.length; j++) {

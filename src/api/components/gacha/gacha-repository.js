@@ -35,7 +35,7 @@ async function riwayat({ Id, hadiahId, namahadiah, menang }) {
     hadiahId: hadiahId || null,
     namahadiah: namahadiah || null,
     menang: menang,
-    tanggal: new Date(),
+    attemptDate: new Date(),
   });
 }
 
