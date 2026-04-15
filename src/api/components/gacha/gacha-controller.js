@@ -10,7 +10,7 @@ async function spin(request, response, next) {
       throw errorResponder(errorTypes.VALIDATION, 'nama harus di isi');
     }
 
-    const result = await gachaService.roll(Id);
+    const result = await gachaService.spin(Id);
 
     if (!result.success && result.error === 'batas harian udh abis') {
       throw errorResponder(errorTypes.FORBIDDEN, result.message);

@@ -1,6 +1,6 @@
-const { Gacha, Prize } = require('../../../models');
+const { Gacha, hadiah: Prize } = require('../../../models');
 
-async function jumlahpercobaan(userId) {
+async function jumlahpercobaan(Id) {
   const mulai = new Date();
   mulai.setHours(0, 0, 0, 0);
 
@@ -13,13 +13,13 @@ async function jumlahpercobaan(userId) {
   });
 }
 
-async function getjumlah_hadiah() {
+async function getAvailablePrizes() {
   const allhadiah = await Prize.find({});
   const result = [];
 
-  for (let i = 0; i < allPrizes.length; i++) {
+  for (let i = 0; i < allhadiah.length; i++) {
     const hadiah = allhadiah[i];
-    const totalpemenang = await Gacha.countDocuments({ prizeId: haidah._id, won: true });
+    const totalpemenang = await Gacha.countDocuments({ hadiahId: hadiah._id, menang: true });
 
     if (totalpemenang < hadiah.maxWinners) {
       result.push(hadiah);
@@ -34,13 +34,13 @@ async function riwayat({ Id, hadiahId, namahadiah, menang }) {
     Id,
     hadiahId: hadiahId || null,
     namahadiah: namahadiah || null,
-    menang,
+    menang: menang,
     tanggal: new Date(),
   });
 }
 
 async function getriwayat(Id) {
-  return Gacha.find({ Id }).sort({ tanggal: -1 });
+  return Gacha.find({ Id }).sort({ attemptDate: -1 });
 }
 
 async function getAllhadiah() {
@@ -48,12 +48,12 @@ async function getAllhadiah() {
 }
 
 async function getWinnersByPrize(hadiahId) {
-  return Gacha.find({ hadiahId, menang: true }).select('ID namahadiah tanggal');
+  return Gacha.find({ hadiahId, menang: true }).select('Id namahadiah attemptDate');
 }
 
 module.exports = {
   jumlahpercobaan,
-  getjumlah_hadiah,
+  getAvailablePrizes,
   riwayat,
   getriwayat,
   getAllhadiah,
