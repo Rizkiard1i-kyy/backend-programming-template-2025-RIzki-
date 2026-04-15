@@ -1,6 +1,7 @@
 const gachaRepository = require('./gacha-repository');
 
 const batas_harian = 5;
+const LOSE_CHANCE = 0.3;
 
 function sensor(nama) {
   if (!nama) return nama;
@@ -31,6 +32,28 @@ async function spin(Id) {
     };
   }
 
+  // Cek chance kalah lebih dulu
+if (Math.random() < LOSE_CHANCE) {
+  await gachaRepository.riwayat({
+    Id,
+    hadiahId: null,
+    namahadiah: null,
+    menang: false,
+  });
+
+  const attemptsToday = upaya + 1;
+  const remainingAttempts = batas_harian - attemptsToday;
+
+  return {
+    berhasil: true,
+    menang: false,
+    hadiah: null,
+    pesan: 'Sayang sekali, kamu tidak memenangkan hadiah apapun.',
+    attemptsToday,
+    remainingAttempts,
+  };
+}
+
   const hadiahtersisa = await gachaRepository.getAvailablePrizes();
   let terpilih = null;
 
@@ -38,7 +61,7 @@ async function spin(Id) {
     const rand = Math.floor(Math.random() * hadiahtersisa.length);
     terpilih = hadiahtersisa[rand];
   }
-  
+
 
   const menang = terpilih !== null;
 

@@ -8,7 +8,6 @@ const prizes = [
   { nama: 'smartwatch', maxWinners: 10, currentWinners: 0 },
   { nama: 'vocer 100 ribu', maxWinners: 100, currentWinners: 0 },
   { nama: 'pulsa 50 ribu', maxWinners: 500, currentWinners: 0 },
-  { nama: 'zonk', maxWinners: 1000, currentWinners: 0 },
 ];
 
 async function seed() {
